@@ -1,4 +1,4 @@
 import cProfile
 import polygon
 
-cProfile.run('polygon.main()')
+cProfile.run('polygon.main()', sort='tottime')

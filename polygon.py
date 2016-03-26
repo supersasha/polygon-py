@@ -207,7 +207,7 @@ def main():
     world = Polygon(p)
 
     minmax = MinMax([[0.0, 100.0]] * 36 + [[-1.0, 1.0], [-math.pi/4, math.pi/4]])
-    learner = CACLA([[-1.0, 1.0]] * 38, dim_actions=2, hidden = 200, sigma=0.1,
+    learner = CACLA([[-1.0, 1.0]] * 38, dim_actions=2, hidden = 100, sigma=0.1,
             alpha=0.01)
    
     norm_reward = MinMax([[-3.0, 1.0]])
@@ -220,14 +220,13 @@ def main():
         print e, e.__dict__
         print 'No saved networks'
 
-    drawer_V = NetDrawer(learner.V.net)
-    drawer_Ac = NetDrawer(learner.Ac.net)
+    #drawer_V = NetDrawer(learner.V.net)
+    #drawer_Ac = NetDrawer(learner.Ac.net)
 
     session = push_session(curdoc())
-    num_layers = len(drawer_V.figures)
-    print 'Num layers:', num_layers
-    pq = gridplot([#[p] + [None] * (num_layers - 1),
-        drawer_V.figures, drawer_Ac.figures])
+    #num_layers = len(drawer_V.figures)
+    #print 'Num layers:', num_layers
+    pq = gridplot([]) #drawer_V.figures, drawer_Ac.figures])
     curdoc().add_root(pq)
     session.show()
 
@@ -235,7 +234,7 @@ def main():
 
     kp = KeyPoints([(-110.0, 0), (110.0, 0)], brain_dir)
 
-    N = 1000000000 #!!!
+    N = 100000 #!!!
     states = np.empty((N, len(world.state()))) #!!!
     for i in xrange(N):
         s = minmax.norm(world.state())
@@ -251,9 +250,9 @@ def main():
             #states[i, :] = s #!!!
             print a, world.car.speed, world.car.wheels_angle, '[', r, ']'
             world.draw()
-        if i % 10000 == 0:
-            drawer_V.draw()
-            drawer_Ac.draw()
+        #if i % 10000 == 0:
+        #    drawer_V.draw()
+        #    drawer_Ac.draw()
         if i % 10000 == 0:
             print i, a, world.car.speed, world.car.wheels_angle, 'avgrwd:', avgrwd / 10000.0, '||', kp.full_circle, '||'
             avgrwd = 0.0

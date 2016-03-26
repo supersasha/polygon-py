@@ -78,8 +78,8 @@ ffi.cdef("""
     void fann_set_activation_function_output(struct fann *ann,
         enum fann_activationfunc_enum activation_function);
     void fann_print_parameters(struct fann *ann);
-
     void fann_set_learning_rate(struct fann *ann, float learning_rate);
+
     void fann_set_training_algorithm(struct fann *ann,
         enum fann_train_enum training_algorithm);
     void fann_set_train_error_function(struct fann *ann,

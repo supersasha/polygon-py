@@ -1,7 +1,8 @@
 import math
 import numpy
 import random
-import neurolab as nl
+#import neurolab as nl
+import nnet
 import os.path
 import pprint
 
@@ -15,23 +16,30 @@ class Approximator(object):
         self.ranges = ranges
         self.hidden = hidden
         self.learning_rate = learning_rate
-        self.net = nl.net.newff(ranges, [hidden, dim_out], transf = [nl.trans.TanSig(), nl.trans.PureLin()])
+        #self.net = nl.net.newff(ranges, [hidden, dim_out], transf = [nl.trans.TanSig(), nl.trans.PureLin()])
        
-        self.net.trainf = nl.train.train_gd
+        #self.net.trainf = nl.train.train_gd
+        self.net = nnet.Net(sizes = [len(ranges), hidden, dim_out],
+                learning_rate=learning_rate)
+        self.net.init_weights(-0.01, 0.01)
     
     def call(self, x):
-        return self.net.sim([x])[0]
+        #return self.net.sim([x])[0]
+        return self.net.run(x)
     
     def update(self, target, x):
-        self.net.train([x], [target],
-                epochs = 1, show = None, goal = 0.0, adapt = True,
-                lr = self.learning_rate)
+        #self.net.train([x], [target],
+        #        epochs = 1, show = None, goal = 0.0, adapt = True,
+        #        lr = self.learning_rate)
+        self.net.train(x, target)
     
     def save(self, filename):
-        self.net.save(filename)
+        #self.net.save(filename)
+        pass # TODO
 
     def load(self, filename):
-        self.net = nl.load(filename)
+        #self.net = nl.load(filename)
+        return None #TODO
 
 class CACLA(object):
     def __init__(self, state_ranges, dim_actions = 1, hidden = 12,

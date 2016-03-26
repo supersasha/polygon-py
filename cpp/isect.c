@@ -102,6 +102,19 @@ void rays_figure_intersections(
     }
 }
 
+void recalc_rays(double * rays, int nr, double * center, double * course)
+{
+    for(int i = 0; i < nr; i++) {
+        int n = i * 4;
+        double angle = 2 * M_PI * i / nr;
+        double s = sin(angle);
+        double c = cos(angle);
+        rays[n] = center[0];
+        rays[n + 1] = center[1];
+        rays[n + 2] = c * course[0] - s * course[1];
+        rays[n + 3] = s * course[0] + c * course[1];
+    }
+}
 
 /*
 

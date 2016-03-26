@@ -16,6 +16,7 @@ void rays_figure_intersections(
         double infinity,
         double * intersections,
         double * distances);
+void recalc_rays(double * rays, int nr, double * center, double * course);
 ''')
 
 if __name__ == '__main__':

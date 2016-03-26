@@ -67,25 +67,10 @@ class Car(object):
         self.center = np.array(center)
 
     def rays(self):
-        #r = []
-        #for i in xrange(self.nrays):
-        #    angle = 2 * math.pi * i / self.nrays
-        #    vector = turn_around(self.course, angle)
-        #    ray = geom.Ray(self.center, vector)
-        #    r.append(ray)
-        #return r
         return self.rays_data
 
     def recalc_rays(self):
-        for i in xrange(self.nrays):
-            angle = 2 * math.pi * i / self.nrays
-            #vector = turn_around(self.course, angle)
-            s = math.sin(angle)
-            c = math.cos(angle)
-            self.rays_data[4*i] = self.center[0]
-            self.rays_data[4*i+1] = self.center[1]
-            self.rays_data[4*i+2] = c * self.course[0] - s * self.course[1]#vector[0]
-            self.rays_data[4*i+3] = s * self.course[0] + c * self.course[1]#vector[1]
+        return cgeom.recalc_rays(self.rays_data, self.center, self.course)
 
     def save_pos(self):
         self._course = np.array(self.course)

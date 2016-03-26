@@ -33,3 +33,9 @@ def rays_figure_intersections(rays, figure, dists, isxs, infinity = -1.0):
 
     #return (dists, isxs)
 
+def recalc_rays(rays, center, course):
+    rays_data = ffi.cast('double *', rays.ctypes.data)
+    center_data = ffi.cast('double *', center.ctypes.data)
+    course_data = ffi.cast('double *', course.ctypes.data)
+    nr = len(rays) / 4
+    lib.recalc_rays(rays_data, nr, center_data, course_data)

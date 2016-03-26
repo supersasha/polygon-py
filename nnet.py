@@ -7,7 +7,7 @@ lib = ffi.dlopen('/usr/local/lib/libdoublefann.2.dylib')
 SIZE_OF_DOUBLE = 8
 
 class Net(object):
-    def __init__(self, sizes=None, net=None):
+    def __init__(self, sizes=None, net=None, learning_rate = 0.01):
         if sizes is None:
             if net is not None:
                 num_layers = lib.fann_get_num_layers(net)
@@ -28,6 +28,7 @@ class Net(object):
             lib.fann_set_activation_function_hidden(self.net, lib.FANN_SIGMOID_SYMMETRIC)
             lib.fann_set_activation_function_output(self.net, lib.FANN_LINEAR)
             lib.fann_set_training_algorithm(self.net, lib.FANN_TRAIN_INCREMENTAL)
+            lib.fann_set_learning_rate(self.net, learning_rate)
         else:
             self.net = net
         self.n_conn = lib.fann_get_total_connections(self.net)
