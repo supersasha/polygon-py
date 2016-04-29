@@ -87,7 +87,10 @@ class Car(object):
         a = h / (c ** m)
         la = math.fabs(self.last_action[0])
         p = a * (la ** m)
-        return p / (1 + math.fabs(p))
+        pp = 0.0 # extra penalty
+        if la > 20:
+            pp = 1.0
+        return p / (1 + math.fabs(p)) + pp
 
     def act(self, action):
         self.last_action = action

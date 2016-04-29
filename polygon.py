@@ -78,7 +78,7 @@ class Polygon(object):
         ps = [[-P, -P], [-P, P], [P, P], [P, -P]]
 
         #self.walls = track.make_track(ps, 3.0, fig=fig)
-        self.walls = track.clover(3.0, scale=10.0, fig=fig) #1.5
+        self.walls = track.clover(2.0, scale=10.0, fig=fig) #1.5
 
         self.walls.draw()
         self.car = car.Car((-110.0, 0), (0.0, 1.0), nrays=36, fig=fig, walls=self.walls)
@@ -180,11 +180,6 @@ class KeyPoints(object):
     
 
 def main():
-    def random_action():
-        return [random.uniform(-5.0, 5.0), random.uniform(-5.0, 5.0)]
-
-    #def norm_reward(r):
-    #    return r / 100.0
     def cmd(a):
         p = (a / (1.0 + math.fabs(a)) + 1.0) / 2.0
         if random.random() > p:
@@ -210,7 +205,7 @@ def main():
     learner = CACLA([[-1.0, 1.0]] * 38, dim_actions=2, hidden = 100, sigma=0.1,
             alpha=0.01)
    
-    norm_reward = MinMax([[-3.0, 1.0]])
+    norm_reward = MinMax([[-4.0, 1.0]])
 
     brain_dir = 'car-brain16'
     try:
